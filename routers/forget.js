@@ -41,12 +41,14 @@ resetrouter.post("/otp",async(req,res)=>{
    const {OTP} = req.body
     const user =await User.findOne({OTP})
     console.log(user)
-    const userotp=user.OTP
-  console.log(userotp)
-    if(req.body.OTP==userotp){
-        res.status(200).json({code:205,message:"otp match"})
-    }else{res.status(404).json({code:405,message:"OTP unmatch"})}
-})
+ if(user==null){res.status(404).json({code:405,message:"OTP unmatch"})}
+     else{
+     const userotp=user.OTP
+   console.log(userotp)
+     if(req.body.OTP==userotp){
+         res.status(200).json({code:205,message:"otp match"})
+     }else{res.status(404).json({code:405,message:"OTP unmatch"})}}
+ })
 
 
 resetrouter.post("/password/:OTP",async(req,res)=>{
